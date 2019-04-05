@@ -9,7 +9,8 @@
 <style <style scoped>
  /* 搜索 */
 .serach-bar {
-   background-color: #eb4450;
+   /* background-color: #eb4450; */
+   background-color: #FF2E15;
    padding: 20rpx;
  }
  .search-input {
