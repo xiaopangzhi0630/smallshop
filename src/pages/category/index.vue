@@ -67,13 +67,8 @@ export default {
   },
   async mounted () {
     await this.cateData()
-<<<<<<< HEAD
-    // 从当前分类数据中跟新出当前索引对应的右侧数据
-    this.rightData = this.cate[this.currentIndex].children
-=======
     // 从当前分类数据中跟新出当前索引对应的右侧数据  第一种方法
     // this.rightData = this.cate[this.currentIndex].children
->>>>>>> category
     // console.log(this.rightData)
   }
 }
