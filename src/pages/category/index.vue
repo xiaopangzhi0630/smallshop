@@ -12,7 +12,7 @@
             </div>
             <!-- 右侧 -->
             <div class="right">
-                <div :key='item1.cat_id' v-for='item1 in rightData' class="brand-item">
+                <div :key='item1.cat_id' v-for='item1 in getRightData' class="brand-item">
                     <div class="brand-title">
                        {{item1.cat_name}}
                     </div>
@@ -43,6 +43,14 @@ export default {
   components: {
     'search-bar': SearchBar
   },
+  computed: {
+    getRightData () {
+      // 在methods中第一种方法, 这是优化的写法
+      // 利用计算属性,从cate数据送拿到一部分数据,根据当前的索引
+      let ret = this.cate.length > 0 && this.cate[this.currentIndex].children
+      return ret
+    }
+  },
   methods: {
     async cateData () {
       // 调用接口获取数据
@@ -59,8 +67,13 @@ export default {
   },
   async mounted () {
     await this.cateData()
+<<<<<<< HEAD
     // 从当前分类数据中跟新出当前索引对应的右侧数据
     this.rightData = this.cate[this.currentIndex].children
+=======
+    // 从当前分类数据中跟新出当前索引对应的右侧数据  第一种方法
+    // this.rightData = this.cate[this.currentIndex].children
+>>>>>>> category
     // console.log(this.rightData)
   }
 }
