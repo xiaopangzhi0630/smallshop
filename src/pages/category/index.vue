@@ -6,7 +6,7 @@
         <div class="content">
             <!-- 左侧 -->
             <div class="left">
-                <div :class="{active:currentIndex === index}" :key="item.cat_id" v-for="(item, index) in cate" class="menu-item">
+                <div @click="changeBrand(index)" :class="{active:currentIndex === index}" :key="item.cat_id" v-for="(item, index) in cate" class="menu-item">
                     {{item.cat_name}}
                 </div>
             </div>
@@ -49,13 +49,19 @@ export default {
       let ret = await request('categories')
       this.cate = ret.data.message
       // console.log(ret)
+    },
+    changeBrand (index) {
+      //   点击切换索引
+      this.currentIndex = index
+      //   同时刷新右侧数据
+      this.rightData = this.cate[this.currentIndex].children
     }
   },
   async mounted () {
     await this.cateData()
     // 从当前分类数据中跟新出当前索引对应的右侧数据
     this.rightData = this.cate[this.currentIndex].children
-    console.log(this.rightData)
+    // console.log(this.rightData)
   }
 }
 </script>
