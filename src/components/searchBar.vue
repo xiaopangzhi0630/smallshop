@@ -2,8 +2,8 @@
     <div class='serach-bar'>
       <div class='search-input'>
         <navigator url='/pages/search/main'>
-          <icon type='search' color='#999' />
-          <span>搜索</span> 
+          <icon type='search' color='#999' size='17'/>
+          <span> 搜索</span> 
         </navigator>
       </div>
     </div>    
