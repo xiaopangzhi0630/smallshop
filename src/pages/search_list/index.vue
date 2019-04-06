@@ -44,7 +44,10 @@ export default {
       currentIndex: 0,
       list: [],
       pagenum: 1,
-      total: 0
+      total: 0,
+      // 保证接口调用完成之后才可以再次调用接口，
+      // 如果接口正在获取数据，那么在这个过程中是不允许再次触发接口调用
+      isLoading: false
     }
   },
   methods: {
@@ -54,6 +57,11 @@ export default {
     },
     // 封装加载功能
     async loadData () {
+      if (this.isLoading) {
+        return
+      }
+      // 禁止再次触发匹配的商品列表
+      this.isLoading = true
       // / 根据关键字加载匹配的商品列表数据
       // let res = await request('goods/search', 'get', {
       //   query: this.keyword,
@@ -71,6 +79,8 @@ export default {
 
       // 数据加载完之后让页码加1
       this.pagenum = this.pagenum + 1
+      // 接口数据返回之后, 才允许再次发送请求
+      this.isLoading = false
     }
   },
   components: {
