@@ -29,7 +29,10 @@
             </div>
         </navigator>
       </div>
-
+      <!-- 提示没有更多数据了 -->
+      <div class="more" v-if='hasMore'>
+        没有更多数据了
+      </div>
     </div> 
 </template>
 <script>
@@ -47,7 +50,8 @@ export default {
       total: 0,
       // 保证接口调用完成之后才可以再次调用接口，
       // 如果接口正在获取数据，那么在这个过程中是不允许再次触发接口调用
-      isLoading: false
+      isLoading: false,
+      hasMore: false
     }
   },
   methods: {
@@ -57,7 +61,9 @@ export default {
     },
     // 封装加载功能
     async loadData () {
-      if (this.isLoading) {
+      // 如果没有更多数据，就应该禁止发送请求调用接口
+      // 本次接口调用是否已经加载完成
+      if (this.isLoading || this.hasMore) {
         return
       }
       // 禁止再次触发匹配的商品列表
@@ -76,6 +82,12 @@ export default {
       this.list = goods
       this.pagenum = parseInt(message.pagenum)
       this.total = message.total
+
+      // 判断是否还有更多的数据
+      if (this.list.length >= this.total) {
+        // 没有更多的数据
+        this.hasMore = true
+      }
 
       // 数据加载完之后让页码加1
       this.pagenum = this.pagenum + 1
