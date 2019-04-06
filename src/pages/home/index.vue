@@ -29,6 +29,21 @@
         </div>
       </div>
     </div>
+    <!-- 与上面的商品列表一样 -->
+    <div class="floor" :key='index' v-for='(item, index) in floor'>
+      <!-- 楼层的头部 -->
+      <div class="floor-title">
+        <img :src="item.floor_title.image_src" mode="aspectFill">
+      </div> 
+      <div class="floor-content">
+        <div class="left">
+          <img :src="item.product_list[0].image_src" mode="aspectFill">
+        </div>
+        <div class="right">
+          <img v-if='i > 0' :key='i' v-for='(img, i) in item.product_list' :src="img.image_src" mode="aspectFill">
+        </div>
+      </div>
+    </div>
     <!-- 回到顶部按钮 -->
     <div class="toTop" @click='toTopHandle' v-if='isShow'>
       ︿
