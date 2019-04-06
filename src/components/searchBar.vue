@@ -8,7 +8,7 @@
       </div>
     </div>    
 </template>
-<style <style scoped>
+<style scoped>
  /* 搜索 */
 .serach-bar {
    /* background-color: #eb4450; */
