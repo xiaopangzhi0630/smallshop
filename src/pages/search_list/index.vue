@@ -51,6 +51,26 @@ export default {
     tabHandle (index) {
       // 改变当前Tab的索引
       this.currentIndex = index
+    },
+    // 封装加载功能
+    async loadData () {
+      // / 根据关键字加载匹配的商品列表数据
+      // let res = await request('goods/search', 'get', {
+      //   query: this.keyword,
+      //   pagenum: this.pagenum
+      // })
+      // let res = await request('goods/search?query=' + this.keyword)
+      let res = await request(`goods/search?query=${this.keyword}&pagenum=${this.pagenum}`)
+      // console.log(res)
+      const {message} = res.data
+      // 需要把新加载的一页数据添加到list中
+      let goods = [...this.list, ...message.goods]
+      this.list = goods
+      this.pagenum = parseInt(message.pagenum)
+      this.total = message.total
+
+      // 数据加载完之后让页码加1
+      this.pagenum = this.pagenum + 1
     }
   },
   components: {
@@ -61,12 +81,13 @@ export default {
     // 参数params表示路径传递过来的参数    传的是一个对象
     // console.log(params)
     this.keyword = params.query
-    let res = await request('goods/search?query=' + this.keyword)
-    console.log(res)
-    const {message} = res.data
-    this.list = message.goods
-    this.pagenum = message.pagenum
-    this.total = message.total
+    //  页面展示调用loadData加载数据
+    this.loadData()
+  },
+  // 页面上拉触底事件的处理函数
+  onReachBottom () {
+    // console.log(111)
+    this.loadData()
   }
 }
 </script>
