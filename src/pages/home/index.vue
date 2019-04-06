@@ -3,7 +3,7 @@
     <!-- 搜索条 -->
     <search-bar></search-bar>
     <!-- 轮播图 -->
-    <swiper indicator-dots='true'>
+    <swiper indicator-dots='true' autoplay='true'>
       <swiper-item :key='item.goods_id' v-for='item in swiper'>
         <image :src="item.image_src" class="slide-image"/>
       </swiper-item>

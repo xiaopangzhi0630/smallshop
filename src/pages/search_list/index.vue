@@ -14,10 +14,9 @@
             {{item}}
         </div>
       </div>
-
       <!-- 商品的列表 -->
       <div class="goods_list">
-        <navigator class="goods-item" :key="index" v-for="(item, index) in list">
+        <navigator :url="'/pages/goods_detail/main?goods_id=' + item.goods_id" class="goods-item" :key="index" v-for="(item, index) in list">
             <img :src="item.goods_small_logo" mode="aspectFill"/>
             <div class="goods-rigth">
               <h4>
@@ -69,12 +68,12 @@ export default {
       // 禁止再次触发匹配的商品列表
       this.isLoading = true
       // / 根据关键字加载匹配的商品列表数据
-      // let res = await request('goods/search', 'get', {
-      //   query: this.keyword,
-      //   pagenum: this.pagenum
-      // })
+      let res = await request('goods/search', 'get', {
+        query: this.keyword,
+        pagenum: this.pagenum
+      })
       // let res = await request('goods/search?query=' + this.keyword)
-      let res = await request(`goods/search?query=${this.keyword}&pagenum=${this.pagenum}`)
+      // let res = await request(`goods/search?query=${this.keyword}&pagenum=${this.pagenum}`)
       // console.log(res)
       const {message} = res.data
       // 需要把新加载的一页数据添加到list中
