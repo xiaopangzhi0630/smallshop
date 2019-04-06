@@ -29,14 +29,31 @@ export default {
   data () {
     return {
       keyword: '',
+      isLoading: '',
+      // 定时器
+      timer: null,
       searchResult: []
     }
   },
   methods: {
     async searchHandle () {
-      let res = await request('goods/qsearch?query=' + this.keyword)
-      const {message} = res.data
-      this.searchResult = message
+      // 输入关键字,调用后台数据
+      // 控制请求的频率(节流)：输入多个字符，但是只发送一次请求
+      // 控制是否发送请求
+      if (this.isLoading) {
+        // 终止后续代码的执行，终止请求
+        return
+      }
+      this.isLoading = true
+      this.timer = setTimeout(async () => {
+        // 关闭之前的定时任务
+        clearTimeout(this.timer)
+        let res = await request('goods/qsearch?query=' + this.keyword)
+        const {message} = res.data
+        this.searchResult = message
+        // 重新打开发送请求的开关
+        this.isLoading = false
+      }, 1000)
     }
   }
 }
