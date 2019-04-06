@@ -63,6 +63,10 @@ export default {
       this.keywordHistory.unshift(this.keyword)
       // 把最新的数据覆盖到本地存储中
       mpvue.setStorageSync('keyword', this.keywordHistory)
+      // 跳转到商品列表
+      mpvue.navigateTo({
+        url: '/pages/search_list/main?query=' + this.keyword
+      })
       // 清空输入框
       this.keyword = ''
     },
