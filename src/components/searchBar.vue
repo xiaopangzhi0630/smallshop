@@ -1,8 +1,10 @@
 <template>
     <div class='serach-bar'>
       <div class='search-input'>
-        <icon type='search' color='#999' />
-        <span>搜索</span> 
+        <navigator url='/pages/search/main'>
+          <icon type='search' color='#999' />
+          <span>搜索</span> 
+        </navigator>
       </div>
     </div>    
 </template>

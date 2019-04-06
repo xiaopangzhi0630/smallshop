@@ -6,7 +6,7 @@
         <div class="content">
             <!-- 左侧 -->
             <div class="left">
-                <div @click="changeBrand(index)" :class="{active:currentIndex === index}" :key="item.cat_id" v-for="(item, index) in cate" class="menu-item">
+                <div @click="changeBrand(index)" :class="{active:currentIndex === index} " :key="item.cat_id" v-for="(item, index) in cate" class="menu-item">
                     {{item.cat_name}}
                 </div>
             </div>
