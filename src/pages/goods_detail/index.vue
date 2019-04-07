@@ -35,14 +35,14 @@
                 <span class="iconfont icon-kefu"></span>
                 <p>联系客服</p>
               </div>
-              <navigator open-type="switchTab" class="footer-left">
+              <navigator url="/pages/cart/main" open-type="switchTab" class="footer-left">
                 <span class="iconfont icon-gouwuche"></span>
                 <p>购物车</p>
               </navigator>
               <div @click="addCart" class="footer-right">
                 加入购物车
               </div>
-              <div class="footer-right">
+              <div @click="toBuy" class="footer-right">
                 立即购买
               </div>
            </div>
@@ -61,6 +61,13 @@ export default {
     }
   },
   methods: {
+    toBuy () {
+      // switchTab跳转到菜单指定的路径
+      // navigateTo跳转非菜单指定的路径
+      mpvue.switchTab({
+        url: '/pages/cart/main'
+      })
+    },
     // 添加购物车
     addCart () {
       // 添加购物车实际上是把商品的信息填充到本地存储中
