@@ -71,11 +71,12 @@ export default {
     // 添加购物车
     addCart () {
       // 添加购物车实际上是把商品的信息填充到本地存储中
-      let cart = mpvue.getStorageSync('myCart') || {}
+      let cart = mpvue.getStorageSync('mycart') || {}
       // 把商品的数量默认设置成1
       this.detail.num = 1
       // 把商品存入购物车：（商品的id：商品的详情）
       cart[this.detail.goods_id] = this.detail
+      // console.log(cart)
       // 添加完成购物车之后，从新把最新的数据再次覆盖原来的数据
       mpvue.setStorageSync('mycart', cart)
       // 添加完成之后，最好给一个提示
