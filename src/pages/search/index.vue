@@ -76,6 +76,7 @@ export default {
       // 清空输入框
       this.keyword = ''
     },
+    // 取消,清空输入框
     cancleHandle () {
       this.keyword = ''
     },
