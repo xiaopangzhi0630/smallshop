@@ -7,12 +7,43 @@
             <span></span>
         </div>
         <!-- 商品列表展示信息 -->
-        <div class="list-title">朵朵生活馆</div>
         <div class="ware-list">
-            <div :key="item.goods_id" v-for="item in products" class="ware-item">
-              <div>{{item.goods_name}}</div>
+            <div :key='item.goods_id' v-for='item in products' class="ware-item">
+                <!-- 左侧按钮checkbox -->
+                <div class="choice-button">
+                <icon @click='changeItemCheckbox(item.goods_id)' :color="item.cheched?'red':'#eee'" type='success' size='18'/>
+                </div>
+                <!-- 右侧商品信息 -->
+                <div class="ware-content">
+                <!-- 左侧图片 -->
+                <navigator class='ware-image'>
+                    <img :src='item.goods_small_logo' mode="aspectFill"/>
+                </navigator>
+                <!-- 右侧商品信息 -->
+                <div class="ware-info">
+                    <!-- 商品名称 -->
+                    <navigator class='ware-title'>
+                    {{item.goods_name}}
+                    </navigator>
+                    <!-- 商品价格和数量变更 -->
+                    <div class="ware-info-btm">
+                    <!-- 商品价格 -->
+                    <div class="ware-price">
+                        <span>￥</span>
+                        {{item.goods_price}}
+                    </div>
+                    <!-- 数量变更 -->
+                    <div class="calculate">
+                        <div class="rect">-</div>
+                        <div class="number">{{item.num}}</div>
+                        <div class="rect">+</div>
+                    </div>
+                    </div>
+                </div>
+                </div>
             </div>
         </div>
+
     </div>
 </template>
 
@@ -28,13 +59,13 @@ export default {
       // 获取购物车的数据
       let cdata = mpvue.getStorageSync('mycart') || {}
       //  把对象转换成为数组
-      let product = []
-      for (let key in cdata) {
-        product.push(cdata[key])
-      }
-      //   let products = Object.values(cdata)
-      //   console.log(product)
-      this.products = product
+      //   let product = []
+      //   for (let key in cdata) {
+      //     product.push(cdata[key])
+      //   }
+      let products = Object.values(cdata)
+      //   console.log(products)
+      this.products = products
     }
   },
   onLoad () {
