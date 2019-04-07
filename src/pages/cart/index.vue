@@ -1,8 +1,16 @@
 <template>
     <div class="container">
-
+        <!-- 地址信息的展示 -->
+        <div class="cart-top" v-if='address'>
+            <div class="receive">
+                <div class="name">收货人: {{address.username}}</div>
+                <div class="phonen-number">{{address.telNumber}}</div>
+            </div>
+            <div class="address">收货地址: {{detailAddress}}</div>
+            <img src="../../../static/images/cart_border@2x.png" class="address-bar" mode="aspectFill">
+        </div>
         <!-- 新增收货人信息 -->
-        <div class="add_addresss">
+        <div class="add_addresss" v-else @click="getAddressInfo">
             <text>新增收货人</text>
             <span></span>
         </div>
@@ -70,11 +78,30 @@
 export default {
   data () {
     return {
-      products: []
+      products: [],
+      address: null
+    }
+  },
+  computed: {
+    // 拼接收货人地址
+    detailAddress () {
+      let {provinceName, cityName, countyName, detailInfo} = this.address
+      return `${provinceName}${cityName}${countyName}${detailInfo}`
     }
   },
   methods: {
     changeItemCheckbox () {
+    },
+    getAddressInfo () {
+      // 获取地址信息
+      let that = this
+      mpvue.chooseAddress({
+        success (res) {
+          that.address = res
+          // 同时存在在本地存储中
+          mpvue.getStorageSync('myAddress', res)
+        }
+      })
     },
     getCartData () {
       // 获取购物车的数据
@@ -92,6 +119,8 @@ export default {
   onLoad () {
     // 从本地存储在中获取购物车信息
     this.getCartData()
+    // 页面加载成功后，从本地存储中获取地址信息
+    this.address = mpvue.getStorageSync('myAddress')
   }
 }
 </script>
