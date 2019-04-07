@@ -81,7 +81,9 @@ export default {
       // 购物车的商品
       products: [],
       // 地址
-      address: null
+      address: null,
+      // 全选
+      isAll: false
     }
   },
   // 地址依赖于data中的addres数据
@@ -93,6 +95,20 @@ export default {
     }
   },
   methods: {
+    // 全选
+    selectAll () {
+      // 实现所有商品的全部选中或者全部取消
+      // 实现思路：把products中所有商品的checked属性全部修改一遍
+      // 控制全选按钮的样式
+      this.isAll = !this.isAll
+      let products = [...this.products]
+      // 修改所有的商品的选中状态
+      products.forEach(item => {
+        item.cheched = this.isAll
+      })
+      this.products = products
+    },
+    // 选中不选中的
     changeItemCheckbox (id) {
       // 控制每件商品的选中与否：本质上就是控制每件商品的checked属性值
       // 根据id去修改相应商品的checked（保证该值在true和false之家进行切换）
@@ -119,6 +135,7 @@ export default {
         }
       })
     },
+    // 获取购物车中的数据
     getCartData () {
       // 获取购物车的数据
       let cdata = mpvue.getStorageSync('mycart') || {}
