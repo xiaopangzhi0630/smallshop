@@ -78,10 +78,13 @@
 export default {
   data () {
     return {
+      // 购物车的商品
       products: [],
+      // 地址
       address: null
     }
   },
+  // 地址依赖于data中的addres数据
   computed: {
     // 拼接收货人地址
     detailAddress () {
@@ -90,11 +93,24 @@ export default {
     }
   },
   methods: {
-    changeItemCheckbox () {
+    changeItemCheckbox (id) {
+      // 控制每件商品的选中与否：本质上就是控制每件商品的checked属性值
+      // 根据id去修改相应商品的checked（保证该值在true和false之家进行切换）
+      let products = [...this.products]
+      products.some(item => {
+        if (item.goods_id === id) {
+          // 表示找到了要选中的商品
+          item.cheched = !item.cheched
+          // 终止遍历
+          return true
+        }
+      })
+      this.products = products
     },
     getAddressInfo () {
       // 获取地址信息
       let that = this
+      // chooseAddress微信小程序API, 获取收货地址
       mpvue.chooseAddress({
         success (res) {
           that.address = res
@@ -107,11 +123,13 @@ export default {
       // 获取购物车的数据
       let cdata = mpvue.getStorageSync('mycart') || {}
       //  把对象转换成为数组
-      //   let product = []
-      //   for (let key in cdata) {
-      //     product.push(cdata[key])
-      //   }
-      let products = Object.values(cdata)
+      let products = []
+      for (let key in cdata) {
+        // 可以给每一件商品添加一个属性checked
+        // checked属性的作用：控制商品是否选中
+        cdata[key].cheched = false
+        products.push(cdata[key])
+      }
       //   console.log(products)
       this.products = products
     }
