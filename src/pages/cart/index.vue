@@ -104,6 +104,15 @@ export default {
     }
   },
   methods: {
+    updateStorage () {
+      // 把修改后的商品数据再次同步到本地存储中（修改了商品的数量）
+      // 把数组重新转化为键值对存储到本地存储中：【goods_id: 商品对象信息】
+      let p = {}
+      this.products.forEach(item => {
+        p[item.goods_id] = item
+      })
+      mpvue.setStorageSync('mycart', p)
+    },
     // 去支付
     toPay () {
       mpvue.navigateTo({
@@ -138,7 +147,7 @@ export default {
         products.splice(currentIndex, 1)
       }
       this.products = products
-      // this.updateStorage()
+      this.updateStorage()
     },
     // 数量加一操作
     addHandle (id) {
@@ -157,6 +166,7 @@ export default {
         }
       })
       this.products = products
+      this.updateStorage()
     },
     // 全选
     selectAll () {
