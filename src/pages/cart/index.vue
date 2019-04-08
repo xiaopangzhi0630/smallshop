@@ -42,9 +42,9 @@
                     </div>
                     <!-- 数量变更 -->
                     <div class="calculate">
-                        <div class="rect">-</div>
+                        <div class="rect" @click='subHandle(item.goods_id)'>-</div>
                         <div class="number">{{item.num}}</div>
-                        <div class="rect">+</div>
+                        <div class="rect" @click='addHandle(item.goods_id)'>+</div>
                     </div>
                     </div>
                 </div>
@@ -103,6 +103,26 @@ export default {
     }
   },
   methods: {
+    // 数量减一操作
+    subHandle (id) {
+      console.log('---' + id)
+    },
+    // 数量加一操作
+    addHandle (id) {
+      // console.log('+++' + id)
+      // 商品数量加一:根据id查询出products中的对应商品的信息，修改对应的num数量
+      // console.log('+' + id)
+      let products = [...this.products]
+      products.some(item => {
+        if (item.goods_id === id) {
+          // 找到了要修改数量的商品，把对应商品数量加一
+          item.num = item.num + 1
+          // 终止遍历
+          return true
+        }
+      })
+      this.products = products
+    },
     // 全选
     selectAll () {
       // 实现所有商品的全部选中或者全部取消
