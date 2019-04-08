@@ -214,7 +214,9 @@ export default {
       this.products = products
     }
   },
-  onLoad () {
+  onShow () {
+    // 这里的生命周期函数需要使用onShow，因为要触发多次（从后台显示该页面的时候就触发一次），
+    //  不可以使用onLoad，因为onLoad之在页面加载的时候触发一次
     // 从本地存储在中获取购物车信息
     this.getCartData()
     // 页面加载成功后，从本地存储中获取地址信息
