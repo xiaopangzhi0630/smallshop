@@ -54,14 +54,14 @@
         <!-- 底部菜单 -->
         <div class="cart-total">
             <!-- 左侧CheckBox -->
-            <div class="total-button">
+            <div class="total-button" >
                 <icon @click='selectAll' :color="isAll?'red':'#eee'" type='success' size='18'/>全选
             </div>
             <!-- 中间的价格 -->
             <div class="total-center">
                 <div class="total-price">合计：
                 <text class="colorRed">
-                    <text>￥</text>
+                    <text>￥</text>{{allPrice}}
                 </text>
                 </div>
                 <div class="price-tips">包含运费</div>
@@ -88,6 +88,14 @@ export default {
   },
   // 地址依赖于data中的addres数据
   computed: {
+    // 计算总价
+    allPrice () {
+      let sum = 0
+      this.products.forEach(item => {
+        sum += item.goods_price * item.num
+      })
+      return sum
+    },
     // 拼接收货人地址
     detailAddress () {
       let {provinceName, cityName, countyName, detailInfo} = this.address
