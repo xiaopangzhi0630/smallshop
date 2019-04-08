@@ -14,6 +14,7 @@
             <text>新增收货人</text>
             <span></span>
         </div>
+        <!-- <div class="list-title">朵朵生活馆</div> -->
         <!-- 商品列表展示信息 -->
         <div class="ware-list">
             <div :key='item.goods_id' v-for='item in products' class="ware-item">
@@ -67,7 +68,7 @@
                 <div class="price-tips">包含运费</div>
             </div>
             <!-- 右侧结算按钮 -->
-            <div class="accounts">
+            <div class="accounts" @click='toPay'>
                 结算
             </div>
         </div>
@@ -103,6 +104,12 @@ export default {
     }
   },
   methods: {
+    // 去支付
+    toPay () {
+      mpvue.navigateTo({
+        url: '/pages/auth/main'
+      })
+    },
     // 数量减一操作
     subHandle (id) {
       // console.log('---' + id)
